@@ -20,12 +20,11 @@ class login_scr extends StatefulWidget {
 class _login_scrState extends State<login_scr> {
   TextEditingController t = TextEditingController();
   TextEditingController t1 = TextEditingController();
-
+  bool e = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Column(
         children: [
           Container(
@@ -41,10 +40,18 @@ class _login_scrState extends State<login_scr> {
           Container(
             padding: EdgeInsets.all(10),
             child: TextField(
+              obscureText: e,
               controller: t1,
               decoration: InputDecoration(
                   hintText: "Enter Password",
                   labelText: "Password",
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          e = !e;
+                        });
+                      },
+                      icon: e?Icon(Icons.visibility_off):Icon(Icons.visibility)),
                   border: OutlineInputBorder()),
             ),
           ),
@@ -67,6 +74,19 @@ class _login_scrState extends State<login_scr> {
                         email: t.text,
                         password: t1.text,
                       );
+                      print(credential);
+                      UserModal usermodel = UserModal(
+                        phone: credential.user!.phoneNumber,
+                        userImage: credential.user!.photoURL,
+                        uId: credential.user!.uid,
+                        email: credential.user!.email,
+                        name: credential.user!.displayName,
+                      );
+                      createmail(usermodel);
+                      widget.tabController.animateTo(1);
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setString('login', 'yes');
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'weak-password') {
                         print('The password provided is too weak.');
@@ -161,4 +181,8 @@ Future createuser(UserModal UserModal) async {
   await firestore.set(UserModal.toJson());
 }
 
-
+Future createmail(UserModal UserModal) async {
+  final firestore =
+      FirebaseFirestore.instance.collection("user").doc("${UserModal.uId}");
+  await firestore.set(UserModal.toJson());
+}

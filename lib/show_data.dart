@@ -30,10 +30,10 @@ class _show_dataState extends State<show_data> {
           if (snapshot.hasError) {
             return Text('Somthing is wrong');
           } else if (snapshot.hasData) {
-            final user = snapshot.data!;
-
-            return ListView(
-              children: user.map(buildUser).toList(),
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) => buildUser(snapshot.data![index]),
             );
           } else {
             return Center(
@@ -46,7 +46,7 @@ class _show_dataState extends State<show_data> {
   }
 
   Widget buildUser(UserModal userModal) => ListTile(
-        title: Text(userModal.name!),
+        title: Text(userModal.uId!),
         subtitle: Text(userModal.email!),
         leading: userModal.userImage != null
             ? Image.network("${userModal.userImage}")
