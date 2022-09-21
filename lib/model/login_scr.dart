@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/reset_password.dart';
 
 import 'model_class.dart';
 
@@ -47,29 +48,35 @@ class _login_scrState extends State<login_scr> {
                   border: OutlineInputBorder()),
             ),
           ),
-
+          TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return reset();
+                  },
+                ));
+              },
+              child: Text("Forgot Password?")),
           Container(
             child: ElevatedButton(
-                onPressed: ()
-                async {
-                  if(widget.method=="login")
-                    {
-                      try {
-                        final credential = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: t.text,
-                          password: t1.text,
-                        );
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'weak-password') {
-                          print('The password provided is too weak.');
-                        } else if (e.code == 'email-already-in-use') {
-                          print('The account already exists for that email.');
-                        }
-                      } catch (e) {
-                        print(e);
+                onPressed: () async {
+                  if (widget.method == "login") {
+                    try {
+                      final credential = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                        email: t.text,
+                        password: t1.text,
+                      );
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'weak-password') {
+                        print('The password provided is too weak.');
+                      } else if (e.code == 'email-already-in-use') {
+                        print('The account already exists for that email.');
                       }
-                    }else if(widget.method=="signup")
+                    } catch (e) {
+                      print(e);
+                    }
+                  }else if(widget.method=="signup")
                       {
                         try {
                           final credential = await FirebaseAuth.instance

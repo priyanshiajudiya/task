@@ -58,7 +58,7 @@ class _loginState extends State<login> {
               controller: widget.tabController,
               children: [
                 login_scr(
-                  widget.tabController,"login"
+                  widget.tabController,"signup"
                 ),
                 show_data(widget.tabController),
               ]),
