@@ -12,6 +12,7 @@ class reset extends StatefulWidget {
 
 class _resetState extends State<reset> {
   TextEditingController t = TextEditingController();
+  TextEditingController t1 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +25,31 @@ class _resetState extends State<reset> {
             child: TextField(
               controller: t,
               decoration: InputDecoration(
-                  hintText: "Enter Email",
-                  labelText: "Email",
+                  hintText: "Enter New password",
+                  labelText: "New password",
+                  border: OutlineInputBorder()),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: TextField(
+              controller: t1,
+              decoration: InputDecoration(
+                  hintText: "Confirm Password",
+                  labelText: "Confirm password",
                   border: OutlineInputBorder()),
             ),
           ),
           ElevatedButton(onPressed:  () {
-            FirebaseAuth.instance.sendPasswordResetEmail(email: t.text).then((value) => Navigator.pop(context));
-          }, child: Text("Confirm"))
+            if(t.text==t1.text)
+              {
+                FirebaseAuth.instance.sendPasswordResetEmail(email: t.text).then((value) => Navigator.pop(context));
+              }
+          }, child: Text("Reset"))
         ],
       ),
     );
   }
 }
+
+
