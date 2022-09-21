@@ -29,7 +29,7 @@ class _splashState extends State<splash> with SingleTickerProviderStateMixin {
       },
     ));
     share_pref.pref = await SharedPreferences.getInstance();
-    if (share_pref.pref!.containsKey('login')) {
+    if (share_pref.pref!.containsKey("login")) {
       tabController.animateTo(1);
     } else {
       tabController.animateTo(0);

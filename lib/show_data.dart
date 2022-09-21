@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model/model_class.dart';
 
@@ -22,6 +23,8 @@ class _show_dataState extends State<show_data> {
             await GoogleSignIn().signOut();
             print("Logut");
             widget.tabController.animateTo(0);
+            share_pref.pref = await SharedPreferences.getInstance();
+            share_pref.pref!.clear();
           },
           child: Icon(Icons.logout)),
       body: StreamBuilder<List<UserModal>>(
@@ -46,8 +49,8 @@ class _show_dataState extends State<show_data> {
   }
 
   Widget buildUser(UserModal userModal) => ListTile(
-        title: Text(userModal.uId!),
-        subtitle: Text(userModal.email!),
+        title: Text(userModal.email!),
+        subtitle: Text(userModal.uId!),
         leading: userModal.userImage != null
             ? Image.network("${userModal.userImage}")
             : Text("Empty"),

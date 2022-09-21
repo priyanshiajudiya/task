@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class reset extends StatefulWidget {
@@ -43,9 +41,11 @@ class _resetState extends State<reset> {
           ElevatedButton(onPressed:  () {
             if(t.text==t1.text)
               {
-                FirebaseAuth.instance.sendPasswordResetEmail(email: t.text).then((value) => Navigator.pop(context));
-              }
-          }, child: Text("Reset"))
+                  FirebaseAuth.instance
+                      .sendPasswordResetEmail(email: t.text)
+                      .then((value) => Navigator.pop(context));
+                }
+              }, child: Text("Reset"))
         ],
       ),
     );
