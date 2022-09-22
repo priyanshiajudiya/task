@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:task/model/login_scr.dart';
-import 'package:task/show_data.dart';
+import 'package:task/screen/admin_screen.dart';
+import 'package:task/screen/login_screen.dart';
+import 'package:task/screen/showdata_screen.dart';
+
 
 class login extends StatefulWidget {
   TabController tabController;
@@ -39,28 +41,40 @@ class _loginState extends State<login> {
         return willLeave;
       },
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.teal,
             bottom: TabBar(
+              indicatorColor: Colors.white,
               controller: widget.tabController,
               tabs: [
                 Tab(
                   text: "login",
+
                 ),
-                Tab(text: "user"),
+                Tab(
+                    text: "user"
+                ),
+                Tab(
+                    text: "admin"
+                ),
+
               ],
             ),
             title: Text('Authentication'),
           ),
           body: TabBarView(
+
               physics: NeverScrollableScrollPhysics(),
               controller: widget.tabController,
               children: [
-                login_scr(
-                  widget.tabController,"login"
+                firstpage(
+                  widget.tabController,"Login"
                 ),
-                show_data(widget.tabController),
+                showdata(widget.tabController),
+                admin(widget.tabController),
+
               ]),
         ),
       ),

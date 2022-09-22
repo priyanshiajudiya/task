@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/model/model_class.dart';
 
-import 'model/model_class.dart';
-
-class show_data extends StatefulWidget {
+class showdata extends StatefulWidget {
   TabController tabController;
-
-  show_data(this.tabController);
+  showdata(this.tabController);
 
   @override
-  State<show_data> createState() => _show_dataState();
+  State<showdata> createState() => _showdataState();
 }
 
-class _show_dataState extends State<show_data> {
+class _showdataState extends State<showdata> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.teal,
           onPressed: () async {
             await GoogleSignIn().signOut();
             print("Logut");
@@ -33,6 +33,8 @@ class _show_dataState extends State<show_data> {
           if (snapshot.hasError) {
             return Text('Somthing is wrong');
           } else if (snapshot.hasData) {
+            final user = snapshot.data!;
+
             return ListView.builder(
               shrinkWrap: true,
               itemCount: snapshot.data!.length,
@@ -49,8 +51,8 @@ class _show_dataState extends State<show_data> {
   }
 
   Widget buildUser(UserModal userModal) => ListTile(
-        title: Text(userModal.email!),
-        subtitle: Text(userModal.uId!),
+        subtitle: Text("${userModal.uId}"),
+        title: Text("${userModal.email!}"),
         leading: userModal.userImage != null
             ? Image.network("${userModal.userImage}")
             : Text("Empty"),
@@ -60,23 +62,23 @@ class _show_dataState extends State<show_data> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text("delete"),
-                    content: Text("Are you sure you want to delete"),
+                    title: Text("Delete"),
+                    content: Text("Are You sure You Want to Delete??"),
                     actions: [
                       TextButton(
                           onPressed: () {
-                            final docuser = FirebaseFirestore.instance
+                            final docUser = FirebaseFirestore.instance
                                 .collection('user')
                                 .doc(userModal.uId);
-                            docuser.delete();
+                            docUser.delete();
                             Navigator.pop(context);
                           },
-                          child: Text("yes")),
+                          child: Text("Yes")),
                       TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text("no"))
+                          child: Text("No"))
                     ],
                   );
                 },
@@ -91,4 +93,21 @@ class _show_dataState extends State<show_data> {
                 .map((doc) => UserModal.fromJson(doc.data()))
                 .toList(),
           );
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 }

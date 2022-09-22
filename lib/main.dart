@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task/first.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:task/spalsh.dart';
+import 'package:task/screen/spalsh_screen.dart';
 
 
 void main() async {
@@ -9,5 +9,5 @@ void main() async {
   await Firebase.initializeApp(
 
   );
-  runApp(MaterialApp(home: splash(),));
+  runApp(MaterialApp(home: splash(),debugShowCheckedModeBanner: false,));
 }

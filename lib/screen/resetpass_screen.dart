@@ -40,12 +40,12 @@ class _resetState extends State<reset> {
           ),
           ElevatedButton(onPressed:  () {
             if(t.text==t1.text)
-              {
-                  FirebaseAuth.instance
-                      .sendPasswordResetEmail(email: t.text)
-                      .then((value) => Navigator.pop(context));
-                }
-              }, child: Text("Reset"))
+            {
+              FirebaseAuth.instance
+                  .sendPasswordResetEmail(email: t.text)
+                  .then((value) => Navigator.pop(context));
+            }
+          }, child: Text("Reset"))
         ],
       ),
     );
