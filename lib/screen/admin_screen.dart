@@ -91,13 +91,11 @@ class _adminState extends State<admin> {
             FloatingActionButton(
                 backgroundColor: Colors.teal,
                 onPressed: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return admin(widget.tabController);
-                        },
-                      ));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return admin(widget.tabController);
+                    },
+                  ));
                 },
                 child: Icon(Icons.edit)),
             Container(
