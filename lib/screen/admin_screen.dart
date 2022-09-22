@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/screen/try_screen.dart';
 
 import '../model/model_class.dart';
 
@@ -93,7 +94,7 @@ class _adminState extends State<admin> {
                 onPressed: () async {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return admin(widget.tabController);
+                      return up_date();
                     },
                   ));
                 },
