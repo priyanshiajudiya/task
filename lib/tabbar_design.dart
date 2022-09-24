@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task/screen/admin_screen.dart';
-import 'package:task/screen/login_screen.dart';
-import 'package:task/screen/showdata_screen.dart';
-
+import 'package:task/screen/admin_screeen/admin_screen.dart';
+import 'package:task/screen/login_screen/login_screen.dart';
+import 'package:task/screen/user_screen/user_scr.dart';
 
 class login extends StatefulWidget {
   TabController tabController;
@@ -65,12 +64,11 @@ class _loginState extends State<login> {
             title: Text('Authentication'),
           ),
           body: TabBarView(
-
               physics: NeverScrollableScrollPhysics(),
               controller: widget.tabController,
               children: [
                 firstpage(
-                  widget.tabController,"Login"
+                  widget.tabController,"login"
                 ),
                 showdata(widget.tabController),
                 admin(widget.tabController),

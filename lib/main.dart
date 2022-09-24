@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task/first.dart';
+import 'package:task/tabbar_design.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:task/screen/spalsh_screen.dart';
+import 'package:task/screen/splash_screen/spalsh_scr.dart';
 
 
 void main() async {

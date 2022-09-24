@@ -45,6 +45,10 @@ dependencies:
   getwidget: ^3.0.1
   flutter_signin_button: ^2.0.0
   image_picker: ^0.8.5+3
+  flutter_svg: ^1.1.5
+  firebase_storage: ^10.3.9
+  cached_network_image: ^3.2.2
+  intl: ^0.17.0
 
 
 dev_dependencies:
