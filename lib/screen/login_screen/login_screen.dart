@@ -13,17 +13,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/service/auth_service.dart';
 
 import '../../model/model_class.dart';
-
 class firstpage extends StatefulWidget {
   TabController tabController;
   String? method;
-
   firstpage(this.tabController, this.method);
-
   @override
   State<firstpage> createState() => _firstpageState();
 }
-
 class _firstpageState extends State<firstpage> {
   TextEditingController temail = TextEditingController();
   TextEditingController tpass = TextEditingController();
@@ -33,27 +29,23 @@ class _firstpageState extends State<firstpage> {
   TextEditingController t3 = TextEditingController();
   TextEditingController t4 = TextEditingController();
   TextEditingController t5 = TextEditingController();
-
   final storageRef = FirebaseStorage.instance;
   String? imageurl;
   String a = "User";
   final ImagePicker _picker = ImagePicker();
   bool password = false;
   bool cpassword = false;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     t5.text = "";
   }
-
   final formkey = GlobalKey<FormState>();
   bool s = false;
   bool pos = false;
   String person = "User";
   final _formkey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return pos
@@ -571,37 +563,6 @@ class _firstpageState extends State<firstpage> {
                             hintText: 'Enter your password'),
                       ),
                     ),
-                    // Row(
-                    //   children: [
-                    //     SizedBox(width: 80),
-                    //     Radio(
-                    //       value: "Admin",
-                    //       groupValue: person,
-                    //       fillColor: MaterialStateColor.resolveWith(
-                    //         (states) => Colors.teal,
-                    //       ),
-                    //       onChanged: (value) {
-                    //         setState(() {
-                    //           person = value.toString();
-                    //         });
-                    //       },
-                    //     ),
-                    //     Text("Admin"),
-                    //     Radio(
-                    //       value: "User",
-                    //       groupValue: person,
-                    //       fillColor: MaterialStateColor.resolveWith(
-                    //         (states) => Colors.teal,
-                    //       ),
-                    //       onChanged: (value) {
-                    //         setState(() {
-                    //           person = value.toString();
-                    //         });
-                    //       },
-                    //     ),
-                    //     Text("User"),
-                    //   ],
-                    // ),
                     Container(
                       margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
                       child: SizedBox(
@@ -622,7 +583,6 @@ class _firstpageState extends State<firstpage> {
                                 child: CircularProgressIndicator(),
                               )));
                             }
-
                             try {
                               final credential = await FirebaseAuth.instance
                                   .signInWithEmailAndPassword(
@@ -636,7 +596,7 @@ class _firstpageState extends State<firstpage> {
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.red,
+                                    backgroundColor: Colors.black,
                                     textColor: Colors.white,
                                     fontSize: 16.0);
                               } else if (e.code == 'wrong-password') {
@@ -646,7 +606,7 @@ class _firstpageState extends State<firstpage> {
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.red,
+                                    backgroundColor: Colors.black,
                                     textColor: Colors.white,
                                     fontSize: 16.0);
                               }
@@ -663,7 +623,6 @@ class _firstpageState extends State<firstpage> {
                         ),
                       ),
                     ),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

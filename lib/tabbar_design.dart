@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task/screen/admin_screeen/admin_screen.dart';
+import 'package:task/screen/api_screen/api_scr.dart';
 import 'package:task/screen/login_screen/login_screen.dart';
 import 'package:task/screen/user_screen/user_scr.dart';
 
@@ -43,6 +44,13 @@ class _loginState extends State<login> {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            actions: [
+              IconButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return apiscrren();
+                },));
+              }, icon: Icon(Icons.add))
+            ],
             backgroundColor: Colors.teal,
             bottom: TabBar(
               indicatorColor: Colors.white,

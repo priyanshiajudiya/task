@@ -60,28 +60,128 @@ class share_pref
   static SharedPreferences? pref;
 }
 //==============================================================================================================
-/*
+//api
+// To parse this JSON data, do
+//
+//     final userModal = userModalFromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final demo = demoFromJson(jsonString);
 
+//banner==============================
+List<Demo> demoFromJson(String str) => List<Demo>.from(json.decode(str).map((x) => Demo.fromJson(x)));
 
- */
+String demoToJson(List<Demo> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class geturl
-{
-  final storageRef = FirebaseStorage.instance;
-  String path = FirebaseAuth.instance.currentUser!.uid;
- ImagePicker? _picker;
-  String? imageurl;
-  Future pickPhoto() async {
-    final XFile? image = await _picker!.pickImage(source: ImageSource.camera);
+class Demo {
+  Demo({
+    this.id,
+    this.bannerFor,
+    this.forId,
+    this.photoUrl,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.isLock,
+    this.redirectTo,
+    this.type,
+    this.redirect,
+  });
 
-    File file = File(image!.path);
-    if (image != null) {
-      var snapshot =
-      await storageRef.ref().child('images/${image.name}').putFile(file);
-      var downloadUrl = await snapshot.ref.getDownloadURL();
+  String? id;
+  String? bannerFor;
+  String? forId;
+  String? photoUrl;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
+  bool? isLock;
+  String? redirectTo;
+  String? type;
+  String? redirect;
 
-        imageurl = downloadUrl;
-      print(imageurl);
-    }
-  }
+  factory Demo.fromJson(Map<String, dynamic> json) => Demo(
+    id: json["_id"],
+    bannerFor: json["bannerFor"],
+    forId: json["forId"],
+    photoUrl: json["photoUrl"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+    isLock: json["isLock"],
+    redirectTo: json["redirectTo"],
+    type: json["type"],
+    redirect: json["redirect"] == null ? null : json["redirect"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "bannerFor": bannerFor,
+    "forId": forId,
+    "photoUrl": photoUrl,
+    "createdAt": createdAt!.toIso8601String(),
+    "updatedAt": updatedAt!.toIso8601String(),
+    "__v": v,
+    "isLock": isLock,
+    "redirectTo": redirectTo,
+    "type": type,
+    "redirect": redirect == null ? null : redirect,
+  };
 }
+
+
+//get categories=======================================
+// To parse this JSON data, do
+//
+//     final cate = cateFromJson(jsonString);
+
+
+
+List<Cate> cateFromJson(String str) => List<Cate>.from(json.decode(str).map((x) => Cate.fromJson(x)));
+
+String cateToJson(List<Cate> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class Cate {
+  Cate({
+    this.id,
+    this.type,
+    this.photoUrl,
+    this.name,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.count,
+  });
+
+  String? id;
+  String? type;
+  String? photoUrl;
+  String? name;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
+  int? count;
+
+  factory Cate.fromJson(Map<String, dynamic> json) => Cate(
+    id: json["_id"],
+    type: json["type"],
+    photoUrl: json["photoUrl"],
+    name: json["name"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+    count: json["count"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "type": type,
+    "photoUrl": photoUrl,
+    "name": name,
+    "createdAt": createdAt!.toIso8601String(),
+    "updatedAt": updatedAt!.toIso8601String(),
+    "__v": v,
+    "count": count,
+  };
+}
+
